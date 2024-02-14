@@ -1,0 +1,29 @@
+{
+  "name": "service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "service": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "axios": "^1.6.7",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.2",
+    "express": "^4.18.2",
+    "form-data": "^4.0.0",
+    "helmet": "^7.1.0",
+    "joi": "^17.12.1",
+    "morgan": "^1.10.0",
+    "node-device-detector": "^2.0.18",
+    "pg": "^8.11.3",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^5.0.0",
+    "xss-clean": "^0.1.4"
+  }
+}

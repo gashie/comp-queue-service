@@ -1,0 +1,138 @@
+[
+  {
+    "timestamp": "2024-02-14T10:36:18.612Z",
+    "action": "api_start",
+    "details": {
+      "message": "API server started",
+      "PORT": "9006"
+    }
+  },
+  {
+    "timestamp": "2024-02-14T10:36:25.328Z",
+    "action": "start",
+    "details": {
+      "message": "Service started"
+    }
+  },
+  {
+    "timestamp": "2024-02-14T10:36:40.027Z",
+    "action": "stop",
+    "details": {
+      "message": "Service stopped"
+    }
+  },
+  {
+    "timestamp": "2024-02-14T10:38:54.260Z",
+    "action": "system-shutdown",
+    "details": {
+      "message": "Initiating graceful shutdown..."
+    }
+  },
+  {
+    "timestamp": "2024-02-14T10:38:54.263Z",
+    "action": "system-shutdown",
+    "details": {
+      "message": "HTTP server closed."
+    }
+  },
+  {
+    "timestamp": "2024-02-14T10:38:54.263Z",
+    "action": "system-shutdown",
+    "details": {
+      "message": "Service state saved."
+    }
+  },
+  {
+    "timestamp": "2024-02-14T10:38:54.264Z",
+    "action": "system-shutdown",
+    "details": {
+      "message": "Cleanup complete, shutting down."
+    }
+  },
+  {
+    "timestamp": "2024-02-14T10:38:56.654Z",
+    "action": "api_start",
+    "details": {
+      "message": "API server started",
+      "PORT": "9006"
+    }
+  },
+  {
+    "timestamp": "2024-02-14T10:39:14.806Z",
+    "action": "start",
+    "details": {
+      "message": "Service started"
+    }
+  },
+  {
+    "timestamp": "2024-02-14T10:39:44.004Z",
+    "action": "system-shutdown",
+    "details": {
+      "message": "Initiating graceful shutdown..."
+    }
+  },
+  {
+    "timestamp": "2024-02-14T10:39:44.005Z",
+    "action": "system-shutdown",
+    "details": {
+      "message": "HTTP server closed."
+    }
+  },
+  {
+    "timestamp": "2024-02-14T10:39:44.006Z",
+    "action": "system-shutdown",
+    "details": {
+      "message": "Service state saved."
+    }
+  },
+  {
+    "timestamp": "2024-02-14T10:39:44.006Z",
+    "action": "system-shutdown",
+    "details": {
+      "message": "Cleanup complete, shutting down."
+    }
+  },
+  {
+    "timestamp": "2024-02-14T10:39:46.965Z",
+    "action": "api_start",
+    "details": {
+      "message": "API server started",
+      "PORT": "9006"
+    }
+  },
+  {
+    "timestamp": "2024-02-14T10:39:50.267Z",
+    "action": "start",
+    "details": {
+      "message": "Service started"
+    }
+  },
+  {
+    "timestamp": "2024-02-14T11:11:13.219Z",
+    "action": "system-shutdown",
+    "details": {
+      "message": "Initiating graceful shutdown..."
+    }
+  },
+  {
+    "timestamp": "2024-02-14T11:11:13.229Z",
+    "action": "system-shutdown",
+    "details": {
+      "message": "HTTP server closed."
+    }
+  },
+  {
+    "timestamp": "2024-02-14T11:11:13.229Z",
+    "action": "system-shutdown",
+    "details": {
+      "message": "Service state saved."
+    }
+  },
+  {
+    "timestamp": "2024-02-14T11:11:13.229Z",
+    "action": "system-shutdown",
+    "details": {
+      "message": "Cleanup complete, shutting down."
+    }
+  }
+]
