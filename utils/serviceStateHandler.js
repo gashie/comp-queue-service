@@ -2,6 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const stateFilePath = path.join(__dirname, '../serviceState.json');
+const pcfgFilePath = path.join(__dirname, '../pushConfigState.json');
 
 // Load the current state from file
 function loadServiceState() {

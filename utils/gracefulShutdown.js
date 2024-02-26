@@ -1,5 +1,6 @@
 
 const { logAction } = require('../logs/custom');
+const checkAndDeleteFile = require('./removeConfig');
 const { saveServiceState, loadServiceState } = require('./serviceStateHandler');
 
 
@@ -21,6 +22,7 @@ async function gracefulShutdown(server) {
         let serviceState = loadServiceState();
         serviceState.running = false;
         await saveServiceState(serviceState);
+         checkAndDeleteFile()
         console.log('Service state saved.');
         logAction('system-shutdown', { message: 'Service state saved.' });
 

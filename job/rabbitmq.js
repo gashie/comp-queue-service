@@ -4,15 +4,10 @@ const { setupRabbitMQConnection, createChannel, assertQueue, sendMessage } = req
 module.exports = {
     worker_rabbit_one: async (messageToSend,queueName,push_config_type) => {
         try {
-            const tableName = 'push_config';
-            const columnsToSelect = []; // Use string values for column names
-            const conditions = [
-                { column: 'push_config_type', operator: '=', value: push_config_type },
-                { column: 'is_default', operator: '=', value: true },
-
-            ];
-            let results = await GlobalModel.Finder(tableName, columnsToSelect, conditions)
-            let db_result = results.rows[0]
+         
+            const filePath = '../pushConfigState.json'; // Path to your JSON file
+            const criteria = { push_config_type: 'rabbitmq', location_id: payload?.payload.location_id }; // Example criteria
+            const db_result = await filterJsonData(filePath, criteria);
             // Setup RabbitMQ connection
             const connection = await setupRabbitMQConnection(db_result?.push_config_url);
 

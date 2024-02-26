@@ -8,6 +8,7 @@ const routes = require("./routes/setup");
 const cookieParser = require('cookie-parser');
 const { logAction } = require("./logs/custom");
 const gracefulShutdown = require("./utils/gracefulShutdown");
+const fetchAndSaveConfig = require("./utils/startupTasks");
 
 //load env vars
 dotenv.config({ path: "./config/config.env" });
@@ -47,45 +48,51 @@ app.use(function (req, res, next) {
 
 
 
-//Mount routes
-app.use("/api/v1/service/", routes);
 
-app.use(errorHandler);
+async function startServer() {
+    try {
+        // Fetch and save configuration before starting the server
+        await fetchAndSaveConfig();
+        console.log('Configuration fetched and saved successfully.');
 
-//errror middleware
-app.use((req, res, next) => {
-    const error = new Error("Not found");
-    error.status = 404;
-    next(error);
-});
+        // Mount routes
+        app.use("/api/v1/service/", routes);
+        app.use(errorHandler);
+        // Additional app use...
+        //errror middleware
+        app.use((req, res, next) => {
+            const error = new Error("Not found");
+            error.status = 404;
+            next(error);
+        });
 
 
-app.use((error, req, res, next) => {
-    res.status(error.status || 500);
-    res.json({
-        status: 0,
-        message: error.message,
-    });
-    logger.error(error.message);
-});
-//create port
-const PORT = process.env.PORT || 9000;
-//listen to portnpm
-const server = app.listen(PORT, () => {
-    console.log(
-        `COMP QUEUE-SERVICE: Running in ${process.env.NODE_ENV} mode and listening on port http://:${PORT}`
-    );
-    logger.debug(`COMP QUEUE-SERVICE: Running in ${process.env.NODE_ENV} mode and listening on port http://:${PORT}`);
-    logAction('api_start', { message: 'API server started', PORT }).catch(console.error);
+        app.use((error, req, res, next) => {
+            res.status(error.status || 500);
+            res.json({
+                status: 0,
+                message: error.message,
+            });
+            logger.error(error.message);
+        });
 
-});
-// Handle unhandled promise rejections
-process.on("unhandledRejection", (err, promise) => {
-    console.log(`Error: ${err.message}`);
-    logger.error(err.message);
-    // Close server & exit process
-    // server.close(() => process.exit(1));
-});
-// Listen for shutdown signals and invoke the graceful shutdown function
-process.on('SIGINT', () => gracefulShutdown(server));
-process.on('SIGTERM', () => gracefulShutdown(server));
+        // Start listening to the server
+        const PORT = process.env.PORT || 9000;
+        const server = app.listen(PORT, () => {
+            console.log(`Running in ${process.env.NODE_ENV} mode and listening on port http://${PORT}`);
+            logger.debug(`Running in ${process.env.NODE_ENV} mode and listening on port http://${PORT}`);
+            logAction('api_start', { message: 'API server started', PORT }).catch(console.error);
+        });
+
+        // Handle shutdown signals
+        process.on('SIGINT', () => gracefulShutdown(server));
+        process.on('SIGTERM', () => gracefulShutdown(server));
+    } catch (error) {
+        console.error(`Startup error: ${error}`);
+        logger.error(`Startup error: ${error.message}`);
+        logAction('api_start', { error: 'Startup error', detail: error?.message });
+
+    }
+}
+
+startServer();

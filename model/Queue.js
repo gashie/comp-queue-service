@@ -51,6 +51,17 @@ servicedb.pullQueue = () => {
             });
     });
 };
+servicedb.fetchConfig = () => {
+    return new Promise((resolve, reject) => {
+        pool.query(`SELECT * FROM push_config WHERE is_default = $1`, [true], (err, results) => {
+            if (err) {
+                logger.error(err);
+                return reject(err);
+            }
 
+            return resolve(results);
+        });
+    });
+};
 
 module.exports = servicedb

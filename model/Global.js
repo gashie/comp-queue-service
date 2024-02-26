@@ -2,58 +2,11 @@ const pool = require("../config/db");
 const { prepareColumns } = require("../helper/global");
 const { logger } = require("../logs/winston");
 
-let shopdb = {};
+let servicedb = {};
 
-shopdb.ValidateDynamicValue = (variable, value) => {
-    return new Promise((resolve, reject) => {
-        pool.query(`SELECT ${variable} FROM tenants WHERE ${variable} = $1`, [value], (err, results) => {
-            if (err) {
-                logger.error(err);
-                return reject(err);
-            }
 
-            return resolve(results);
-        });
-    });
-};
 
-shopdb.Find = (variable, value, table) => {
-    return new Promise((resolve, reject) => {
-        pool.query(`SELECT * FROM ${table} WHERE ${variable} = $1`, [value], (err, results) => {
-            if (err) {
-                logger.error(err);
-                return reject(err);
-            }
-
-            return resolve(results);
-        });
-    });
-};
-shopdb.FetchRef = (value) => {
-    return new Promise((resolve, reject) => {
-        pool.query(`SELECT generate_order_code('${value}')`, [], (err, results) => {
-            if (err) {
-                logger.error(err);
-                return reject(err);
-            }
-
-            return resolve(results);
-        });
-    });
-};
-shopdb.FetchRefCode = (value,destinationOutlet) => {
-    return new Promise((resolve, reject) => {
-        pool.query(`SELECT generate_ref_code('${value}','${destinationOutlet}')`, [], (err, results) => {
-            if (err) {
-                logger.error(err);
-                return reject(err);
-            }
-
-            return resolve(results);
-        });
-    });
-};
-shopdb.Finder = (tableName, columnsToSelect, conditions) => {
+servicedb.Finder = (tableName, columnsToSelect, conditions) => {
     return new Promise((resolve, reject) => {
         // Build the dynamic SQL query with the dynamic conditions
         const conditionClauses = [];
@@ -90,7 +43,7 @@ shopdb.Finder = (tableName, columnsToSelect, conditions) => {
         });
     });
 };
-shopdb.Create = (payload, table, returnfield) => {
+servicedb.Create = (payload, table, returnfield) => {
     let columns = Object.keys(payload)
     let params = Object.values(payload)
     let fields = columns.toString()
@@ -111,7 +64,7 @@ shopdb.Create = (payload, table, returnfield) => {
 
 
 
-shopdb.Update = (values, table, fieldname, fiedlvalue) => {
+servicedb.Update = (values, table, fieldname, fiedlvalue) => {
     let columns = Object.keys(values);
     let params = [fiedlvalue];
     let query = `UPDATE ${table} SET `;
@@ -133,4 +86,4 @@ shopdb.Update = (values, table, fieldname, fiedlvalue) => {
     });
 };
 
-module.exports = shopdb
+module.exports = servicedb
